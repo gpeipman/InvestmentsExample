@@ -12,13 +12,11 @@ namespace Investments
         {
             DataGenerator.GenerateData(_context);
 
-			var eur = _context.Securables.GetByTicker("EUR");
 			var reportingDate = DateTime.Parse("2023-04-10");
-            var targetSecurable = _context.Securables.GetByTicker("EUR");
 
             foreach(var account in _context.Accounts)
             {
-                var builder = new AccountStatementBuilder(account);
+                var builder = new AccountStatementBuilder(account, null, reportingDate);
                 var statement = builder.Build();
                 var columns = new[] { "TransactionId", "Time", "Account", "Amount", "Description", "Balance", "Currency" };
                 var tablePrinter = new TextTablePrinter(columns);

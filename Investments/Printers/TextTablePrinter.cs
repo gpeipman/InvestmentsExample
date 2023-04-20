@@ -8,14 +8,14 @@ namespace Investments.Printers
 	// Credits: genert.org - https://genert.org/blog/csharp-programming/
 	public class TextTablePrinter
 	{
-		private List<object> _columns;
-		private List<object[]> _rows;
+		private readonly List<object> _columns;
+		private readonly List<object[]> _rows;
 
 		public TextTablePrinter(params string[] columns)
 		{
 			if (columns == null || columns.Length == 0)
 			{
-				throw new ArgumentException("Parameter cannot be null nor empty", "columns");
+				throw new ArgumentException("Parameter cannot be null nor empty", nameof(columns));
 			}
 
 			_columns = new List<object>(columns);
@@ -26,7 +26,7 @@ namespace Investments.Printers
 		{
 			if (values == null)
 			{
-				throw new ArgumentException("Parameter cannot be null", "values");
+				throw new ArgumentException("Parameter cannot be null", nameof(values));
 			}
 
 			if (values.Length != _columns.Count)
@@ -39,7 +39,7 @@ namespace Investments.Printers
 
 		public override string ToString()
 		{
-			StringBuilder tableString = new StringBuilder();
+			var tableString = new StringBuilder();
 			List<int> columnsLength = GetColumnsMaximumStringLengths();
 
 			var rowStringFormat = Enumerable
@@ -72,11 +72,11 @@ namespace Investments.Printers
 
 		private List<int> GetColumnsMaximumStringLengths()
 		{
-			List<int> columnsLength = new List<int>();
+			var columnsLength = new List<int>();
 
 			for (int i = 0; i < _columns.Count; i++)
 			{
-				List<object> columnRow = new List<object>();
+				var columnRow = new List<object>();
 				int max = 0;
 
 				columnRow.Add(_columns[i]);
